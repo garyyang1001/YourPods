@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="YourPods - AI 即時美股語音助手，專為忙碌投資人打造。重大消息10分鐘內即時分析，個人化內容，三種語音風格。">
+    <meta name="keywords" content="YourPods, AI, 美股, 語音助手, 投資, Podcast, 即時分析">
+    <meta name="author" content="YourPods Team">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="YourPods - AI 即時美股語音助手">
+    <meta property="og:description" content="重大消息10分鐘內即時分析，專為忙碌投資人打造的AI語音助手">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourpods.com">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="YourPods - AI 即時美股語音助手">
+    <meta name="twitter:description" content="重大消息10分鐘內即時分析，專為忙碌投資人打造的AI語音助手">
+    
+    <title>YourPods - AI 即時美股語音助手</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: #1a202c;
+            color: #f7fafc;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        /* ===================
+           HERO SECTION STYLES
+           =================== */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        }
+        
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .hero-content {
+            z-index: 2;
+        }
+        
+        .main-title {
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: #fed7d7;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #e2e8f0;
+            opacity: 0;
+            animation: typewriter 2s ease-out 1.5s forwards;
+            border-right: 2px solid #ed8936;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+        }
+        
+        .value-prop {
+            font-size: 1rem;
+            color: #cbd5e0;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 2.5s forwards;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(237, 137, 54, 0.3);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 3s forwards;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(237, 137, 54, 0.4);
+        }
+        
+        .cta-button.playing {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+        
+        .cta-button.loading {
+            background: linear-gradient(135deg, #a0aec0 0%, #718096 100%);
+            cursor: not-allowed;
+        }
+        
+        .play-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .cta-button.playing .play-icon {
+            transform: scale(1.1);
+        }
+        
+        .loading-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            display: none;
+        }
+        
+        .cta-button.loading .loading-spinner {
+            display: block;
+        }
+        
+        .cta-button.loading .play-icon {
+            display: none;
+        }
+        
+        .phone-mockup {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+        
+        .phone {
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(145deg, #2d3748, #4a5568);
+            border-radius: 40px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .notification {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            background: rgba(26, 32, 44, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: slideInNotification 0.8s ease-out 3.5s forwards;
+        }
+        
+        .notification-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .app-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            border-radius: 6px;
+            margin-right: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .app-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+        
+        .notification-time {
+            margin-left: auto;
+            font-size: 0.75rem;
+            color: #a0aec0;
+        }
+        
+        .notification-content {
+            font-size: 0.875rem;
+            line-height: 1.4;
+            color: #cbd5e0;
+        }
+        
+        .trust-indicators {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 3.5s forwards;
+        }
+        
+        .trust-item {
+            font-size: 0.875rem;
+            color: #a0aec0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .trust-dot {
+            width: 8px;
+            height: 8px;
+            background: #48bb78;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        /* ===================
+           PROBLEM SECTION STYLES
+           =================== */
+        .problem-section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            position: relative;
+            background: linear-gradient(180deg, #2d3748 0%, #1a202c 100%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fed7d7;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+        
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #e2e8f0;
+            opacity: 0.8;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1s forwards;
+        }
+        
+        .problems-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        
+        .problem-card {
+            background: rgba(26, 32, 44, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: left;
+            position: relative;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(237, 137, 54, 0.3);
+            background: rgba(26, 32, 44, 0.9);
+        }
+        
+        .problem-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0;
+        }
+        
+        .problem-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(237, 137, 54, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(237, 137, 54, 0.2);
+            flex-shrink: 0;
+        }
+        
+        .problem-icon svg {
+            width: 24px;
+            height: 24px;
+            color: #ed8936;
+        }
+        
+        .card-content {
+            flex: 1;
+        }
+        
+        .problem-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #f7fafc;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .problem-description {
+            font-size: 0.95rem;
+            color: #a0aec0;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        
+        /* ===================
+           SOLUTION SECTION STYLES
+           =================== */
+        .solution-section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            position: relative;
+            background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
+        }
+        
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .solution-card {
+            background: rgba(26, 32, 44, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(237, 137, 54, 0.3);
+            background: rgba(26, 32, 44, 0.9);
+        }
+        
+        .solution-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .solution-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(237, 137, 54, 0.3);
+        }
+        
+        .solution-icon svg {
+            width: 30px;
+            height: 30px;
+            color: white;
+        }
+        
+        .solution-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #f7fafc;
+            margin-bottom: 1rem;
+        }
+        
+        .solution-description {
+            font-size: 1rem;
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .solution-benefit {
+            background: rgba(237, 137, 54, 0.1);
+            color: #fed7d7;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-left: 3px solid #ed8936;
+        }
+        
+        .voice-styles-section {
+            margin-top: 4rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 2.5s forwards;
+        }
+        
+        .voice-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .voice-subtitle {
+            font-size: 1.1rem;
+            color: #a0aec0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .voice-styles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .voice-card {
+            background: rgba(45, 55, 72, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .voice-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(237, 137, 54, 0.3);
+            background: rgba(45, 55, 72, 0.8);
+        }
+        
+        .voice-avatar {
+            width: 80px;
+            height: 80px;
+            background: rgba(237, 137, 54, 0.1);
+            border: 2px solid rgba(237, 137, 54, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+        }
+        
+        .voice-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fed7d7;
+            margin-bottom: 0.5rem;
+        }
+        
+        .voice-description {
+            font-size: 0.9rem;
+            color: #a0aec0;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+        
+        .voice-sample {
+            background: rgba(237, 137, 54, 0.1);
+            border: 1px solid rgba(237, 137, 54, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .voice-sample-text {
+            font-size: 0.85rem;
+            color: #cbd5e0;
+            font-style: italic;
+            line-height: 1.4;
+        }
+        
+        .play-demo-btn {
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 auto;
+            box-shadow: 0 2px 10px rgba(237, 137, 54, 0.3);
+        }
+        
+        .play-demo-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(237, 137, 54, 0.4);
+        }
+        
+        .play-demo-btn.playing {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+        }
+        
+        .btn-icon {
+            font-size: 0.8rem;
+        }
+        
+        /* ===================
+           DIFFERENTIATION SECTION STYLES
+           =================== */
+        .differentiation-section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            position: relative;
+            background: linear-gradient(180deg, #2d3748 0%, #1a202c 100%);
+        }
+        
+        .highlight-section {
+            background: rgba(26, 32, 44, 0.7);
+            border: 1px solid rgba(237, 137, 54, 0.2);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin-bottom: 4rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.5s forwards;
+        }
+        
+        .highlight-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ed8936;
+            margin-bottom: 1.5rem;
+        }
+        
+        .highlight-text {
+            font-size: 1.2rem;
+            color: #e2e8f0;
+            line-height: 1.7;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .advantage-card {
+            background: rgba(26, 32, 44, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .advantage-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(237, 137, 54, 0.3);
+            background: rgba(26, 32, 44, 0.9);
+        }
+        
+        .advantage-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .advantage-number {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .advantage-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(237, 137, 54, 0.1);
+            border: 1px solid rgba(237, 137, 54, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .advantage-icon svg {
+            width: 24px;
+            height: 24px;
+            color: #ed8936;
+        }
+        
+        .advantage-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f7fafc;
+            margin-bottom: 1rem;
+        }
+        
+        .advantage-description {
+            font-size: 1rem;
+            color: #cbd5e0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .advantage-stat {
+            background: rgba(237, 137, 54, 0.1);
+            color: #fed7d7;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            border-left: 3px solid #ed8936;
+        }
+        
+        .competitors-section {
+            margin-top: 4rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 3s forwards;
+        }
+        
+        .competitors-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #e2e8f0;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .competitors-subtitle {
+            font-size: 1.1rem;
+            color: #a0aec0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .competitors-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .yourpods-highlight {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .other-competitors {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .competitor-card {
+            background: rgba(45, 55, 72, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .competitor-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(237, 137, 54, 0.3);
+        }
+        
+        .competitor-logo {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .competitor-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #cbd5e0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .competitor-type {
+            font-size: 0.9rem;
+            color: #a0aec0;
+            margin-bottom: 1rem;
+        }
+        
+        .competitor-limitation {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 0.85rem;
+            color: #fca5a5;
+            line-height: 1.4;
+        }
+        
+        .yourpods-advantage {
+            background: rgba(26, 32, 44, 0.9);
+            border: 2px solid #ed8936;
+            position: relative;
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(237, 137, 54, 0.3);
+        }
+        
+        .yourpods-advantage:hover {
+            transform: scale(1.07);
+            box-shadow: 0 12px 40px rgba(237, 137, 54, 0.4);
+        }
+        
+        .advantage-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .yourpods-advantage .competitor-limitation {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            color: #bbf7d0;
+        }
+        
+        /* ===================
+           CTA SECTION STYLES
+           =================== */
+        .cta-section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #1a202c 0%, #2d3748 100%);
+        }
+        
+        .cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .cta-card {
+            background: rgba(26, 32, 44, 0.9);
+            border: 2px solid rgba(237, 137, 54, 0.3);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+        
+        .limited-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        .cta-main-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #fed7d7;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .cta-subtitle {
+            font-size: 1.3rem;
+            color: #e2e8f0;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        
+        .urgency-text {
+            font-size: 1.1rem;
+            color: #fbbf24;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .urgency-icon {
+            font-size: 1.2rem;
+            animation: bounce 1s infinite;
+        }
+        
+        .benefits-list {
+            text-align: left;
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+            background: rgba(45, 55, 72, 0.6);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+        
+        .benefits-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fed7d7;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #cbd5e0;
+            line-height: 1.5;
+        }
+        
+        .benefit-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .benefit-icon {
+            color: #ed8936;
+            font-size: 1.1rem;
+            margin-top: 0.1rem;
+            flex-shrink: 0;
+        }
+        
+        .signup-form {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f7fafc;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #f7fafc;
+            font-size: 1rem;
+            font-family: 'Noto Sans TC', sans-serif;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #ed8936;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(237, 137, 54, 0.3);
+        }
+        
+        .form-input::placeholder {
+            color: #a0aec0;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(237, 137, 54, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(237, 137, 54, 0.5);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .submit-btn.loading {
+            background: linear-gradient(135deg, #a0aec0, #718096);
+            cursor: not-allowed;
+        }
+        
+        .btn-text {
+            transition: opacity 0.3s ease;
+        }
+        
+        .submit-loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .submit-btn.loading .btn-text {
+            opacity: 0;
+        }
+        
+        .submit-btn.loading .submit-loading-spinner {
+            opacity: 1;
+        }
+        
+        .trust-indicators-cta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .trust-item-cta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #a0aec0;
+        }
+        
+        .trust-icon {
+            color: #48bb78;
+            font-size: 1rem;
+        }
+        
+        .social-proof {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .proof-text {
+            font-size: 0.95rem;
+            color: #cbd5e0;
+            margin-bottom: 1rem;
+        }
+        
+        .user-avatars {
+            display: flex;
+            justify-content: center;
+            gap: -0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+            border: 2px solid #1a202c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-left: -8px;
+        }
+        
+        .user-avatar:first-child {
+            margin-left: 0;
+        }
+        
+        .countdown {
+            font-size: 0.9rem;
+            color: #fbbf24;
+            font-weight: 600;
+        }
+        
+        /* ===================
+           BACKGROUND DECORATIONS
+           =================== */
+        .bg-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ed8936, #dd6b20);
+        }
+        
+        .bg-circle-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            right: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .bg-circle-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 5%;
+            animation: float 6s ease-in-out infinite 3s;
+        }
+        
+        /* ===================
+           ANIMATIONS
+           =================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes typewriter {
+            to {
+                width: 100%;
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInNotification {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: translateX(-50%) scale(1.05);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-8px);
+            }
+            60% {
+                transform: translateY(-4px);
+            }
+        }
+        
+        @keyframes spin {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+        
+        /* ===================
+           RESPONSIVE DESIGN
+           =================== */
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            
+            .main-title, .section-title, .cta-main-title {
+                font-size: 2rem;
+            }
+            
+            .subtitle, .section-subtitle, .cta-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .phone {
+                width: 250px;
+                height: 500px;
+            }
+            
+            .hero-section, .problem-section, .solution-section, 
+            .differentiation-section, .cta-section {
+                padding: 2rem 1rem;
+            }
+            
+            .problems-container, .solutions-grid, .advantages-grid, 
+            .voice-styles-grid, .other-competitors {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .cta-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .benefits-list, .signup-form {
+                padding: 1.5rem;
+            }
+            
+            .trust-indicators, .trust-indicators-cta {
+                gap: 1rem;
+            }
+            
+            .yourpods-advantage {
+                transform: scale(1.02);
+            }
+            
+            .yourpods-advantage:hover {
+                transform: scale(1.04);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title, .section-title, .cta-main-title {
+                font-size: 1.75rem;
+            }
+            
+            .phone {
+                width: 220px;
+                height: 440px;
+            }
+            
+            .problem-card, .solution-card, .advantage-card, 
+            .voice-card, .competitor-card, .cta-card {
+                padding: 1.5rem 1rem;
+            }
+            
+            .trust-indicators, .trust-indicators-cta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <!-- 背景裝飾 -->
+        <div class="bg-decoration">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+        </div>
+        
+        <div class="hero-container">
+            <!-- 左側內容 -->
+            <div class="hero-content">
+                <h1 class="main-title">TSLA 跌了 4%，你還在睡？</h1>
+                <p class="subtitle">YourPods 已經準備好分析給你聽了喔</p>
+                <p class="value-prop">專為忙碌投資人打造的 AI 即時美股語音助手</p>
+                <button class="cta-button" onclick="handleAudioPlay()">
+                    <span class="play-icon">▶️</span>
+                    <div class="loading-spinner"></div>
+                    <span class="button-text">好啦我要聽看看</span>
+                </button>
+                
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <div class="trust-dot"></div>
+                        <span>已有 1,247 位投資人搶先體驗</span>
+                    </div>
+                    <div class="trust-item">
+                        <div class="trust-dot"></div>
+                        <span>上次更新：2 分鐘前</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右側手機 mockup -->
+            <div class="phone-mockup">
+                <div class="phone">
+                    <div class="phone-screen">
+                        <!-- 推播通知 -->
+                        <div class="notification">
+                            <div class="notification-header">
+                                <div class="app-icon">🎧</div>
+                                <span class="app-name">YourPods</span>
+                                <span class="notification-time">現在</span>
+                            </div>
+                            <div class="notification-content">
+                                你關注的 TSLA 出大事了，其他人都在聽分析，就你還不知道 😔
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section" id="problems">
+        <!-- 背景裝飾 -->
+        <div class="bg-decoration">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+        </div>
+        
+        <div class="container">
+            <!-- 標題區 -->
+            <div class="section-header">
+                <h1 class="section-title">看看你都錯過了什麼...</h1>
+                <p class="section-subtitle">YourPods 一直在等你回來，但你卻讓機會從指縫中溜走</p>
+            </div>
+            
+            <!-- 問題卡片 -->
+            <div class="problems-container">
+                <div class="problem-card" data-delay="0.5">
+                    <div class="card-header">
+                        <div class="problem-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="problem-title">川普半夜發推文，你在睡覺</h3>
+                            <p class="problem-description">
+                                凌晨 3 點川普發推痛罵馬斯克，TSLA 開盤直接跌 4%。其他投資人早就知道了，就你還在做夢。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="problem-card" data-delay="1">
+                    <div class="card-header">
+                        <div class="problem-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                                <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="problem-title">等股癌更新，機會都飛了</h3>
+                            <p class="problem-description">
+                                通常一週更新兩次的傳統 Podcast，等他分析完，市場早就變天了。你的錢等得起這種速度嗎？
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="problem-card" data-delay="1.5">
+                    <div class="card-header">
+                        <div class="problem-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="problem-title">想聽 NVDA 分析，卻要聽一堆廢話</h3>
+                            <p class="problem-description">
+                                我們理解你只在意你關心的新聞重點，但你聽的Podcast卻沒有人講到你需要的。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="problem-card" data-delay="2">
+                    <div class="card-header">
+                        <div class="problem-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                            </svg>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="problem-title">聽完30分鐘的Podcast，什麼重點都沒有</h3>
+                            <p class="problem-description">
+                                好不容易有時間關心股市，結果聽了半天還是不知道該買還是該賣。時間就這樣溜走了。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution-section" id="solutions">
+        <!-- 背景裝飾 -->
+        <div class="bg-decoration">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+        </div>
+        
+        <div class="container">
+            <!-- 標題區 -->
+            <div class="section-header">
+                <h1 class="section-title">YourPods 如何解決這一切</h1>
+                <p class="section-subtitle">AI 驅動的即時美股語音助手，專為忙碌投資人打造</p>
+            </div>
+            
+            <!-- 解決方案卡片 -->
+            <div class="solutions-grid">
+                <div class="solution-card" data-delay="0.5">
+                    <div class="solution-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                        </svg>
+                    </div>
+                    <h3 class="solution-title">即時生成</h3>
+                    <p class="solution-description">
+                        重大消息發生後 10 分鐘內，AI 自動整合全球資訊，為你量身打造專屬語音解讀。不再錯過任何影響股價的關鍵時刻。
+                    </p>
+                    <div class="solution-benefit">
+                        從突發新聞到個人化分析，只需 10 分鐘
+                    </div>
+                </div>
+                
+                <div class="solution-card" data-delay="1">
+                    <div class="solution-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <h3 class="solution-title">個人化訂製</h3>
+                    <p class="solution-description">
+                        專注你關心的股票和產業，過濾不相關資訊。只聽你真正需要的內容，每一分鐘都是精華。
+                    </p>
+                    <div class="solution-benefit">
+                        90% 精準度，100% 符合你的投資需求
+                    </div>
+                </div>
+                
+                <div class="solution-card" data-delay="1.5">
+                    <div class="solution-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+                            <path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/>
+                        </svg>
+                    </div>
+                    <h3 class="solution-title">熟悉語調</h3>
+                    <p class="solution-description">
+                        台灣人熟悉的語音風格，三種主播風格任你選擇。從專業財經分析到輕鬆同事聊天，找到最適合你的聲音。
+                    </p>
+                    <div class="solution-benefit">
+                        3 種語音風格，總有一款適合你
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 語音風格展示 -->
+            <div class="voice-styles-section">
+                <h2 class="voice-title">試聽不同的語音風格</h2>
+                <p class="voice-subtitle">找到最適合你的專屬主播，讓聽投資分析變成一種享受</p>
+                
+                <div class="voice-styles-grid">
+                    <div class="voice-card">
+                        <div class="voice-avatar">👔</div>
+                        <h4 class="voice-name">專業財經主播風格</h4>
+                        <p class="voice-description">專業、準確、值得信賴的分析語調</p>
+                        <div class="voice-sample">
+                            <p class="voice-sample-text">
+                                「TSLA 今日下跌 4.2%，主要受到馬斯克與川普爭議影響。從技術面分析，目前股價已跌破關鍵支撐位...」
+                            </p>
+                        </div>
+                        <button class="play-demo-btn" onclick="playVoiceDemo(1)">
+                            <span class="btn-icon">▶️</span>
+                            <span>試聽專業風格</span>
+                        </button>
+                    </div>
+                    
+                    <div class="voice-card">
+                        <div class="voice-avatar">😤</div>
+                        <h4 class="voice-name">財經老師風格</h4>
+                        <p class="voice-description">直接、犀利、一針見血的投資建議</p>
+                        <div class="voice-sample">
+                            <p class="voice-sample-text">
+                                「TSLA 又跌了！我早就跟你們說過，馬斯克這個人就是愛惹事，現在知道後果了吧？快點止損啦！」
+                            </p>
+                        </div>
+                        <button class="play-demo-btn" onclick="playVoiceDemo(2)">
+                            <span class="btn-icon">▶️</span>
+                            <span>試聽老師風格</span>
+                        </button>
+                    </div>
+                    
+                    <div class="voice-card">
+                        <div class="voice-avatar">😊</div>
+                        <h4 class="voice-name">同事聊天風格</h4>
+                        <p class="voice-description">輕鬆、親切、就像朋友在分享投資心得</p>
+                        <div class="voice-sample">
+                            <p class="voice-sample-text">
+                                「欸你有聽說嗎？TSLA 今天被川普搞到跌了 4%，不過我覺得這可能是個進場機會，你覺得呢？」
+                            </p>
+                        </div>
+                        <button class="play-demo-btn" onclick="playVoiceDemo(3)">
+                            <span class="btn-icon">▶️</span>
+                            <span>試聽聊天風格</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentiation Section -->
+    <section class="differentiation-section" id="differentiation">
+        <!-- 背景裝飾 -->
+        <div class="bg-decoration">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+        </div>
+        
+        <div class="container">
+            <!-- 標題區 -->
+            <div class="section-header">
+                <h1 class="section-title">為什麼只有 YourPods 做得到？</h1>
+                <p class="section-subtitle">
+                    市場不等人，機會稍縱即逝。當你還在等 Podcaster 更新時，聰明錢已經進場了。
+                </p>
+            </div>
+            
+            <!-- 核心論述區 -->
+            <div class="highlight-section">
+                <h2 class="highlight-title">AI 的即時優勢是人類無法複製的</h2>
+                <p class="highlight-text">
+                    人類 Podcaster 需要時間研究、錄製、剪輯，但市場不等人。只有 AI 能在消息發生的瞬間，立即整合全球資訊，為你量身打造 10 分鐘精準解讀。
+                </p>
+            </div>
+            
+            <!-- 核心優勢 -->
+            <div class="advantages-grid">
+                <div class="advantage-card" data-delay="0.5">
+                    <div class="advantage-number">1</div>
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+                        </svg>
+                    </div>
+                    <h3 class="advantage-title">極速反應</h3>
+                    <p class="advantage-description">
+                        川普凌晨 3 點發推，YourPods 凌晨 3:10 就有分析。不需要等到隔天早上，更不用等一週後的節目更新。
+                    </p>
+                    <div class="advantage-stat">
+                        10 分鐘 vs 傳統的 6-24 小時
+                    </div>
+                </div>
+                
+                <div class="advantage-card" data-delay="1">
+                    <div class="advantage-number">2</div>
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="advantage-title">個人專屬</h3>
+                    <p class="advantage-description">
+                        不是萬用的市場分析，而是專門針對你關心的 TSLA、NVDA、AAPL 等股票的深度解讀。每一秒都是你需要的。
+                    </p>
+                    <div class="advantage-stat">
+                        100% 個人化 vs 90% 無關內容
+                    </div>
+                </div>
+                
+                <div class="advantage-card" data-delay="1.5">
+                    <div class="advantage-number">3</div>
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+                            <path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/>
+                        </svg>
+                    </div>
+                    <h3 class="advantage-title">聲音熟悉</h3>
+                    <p class="advantage-description">
+                        三種台灣人熟悉的語調，不會有機器人的生硬感。從專業主播到老師訓話，總有一種讓你聽得舒服的風格。
+                    </p>
+                    <div class="advantage-stat">
+                        3 種風格選擇 vs 單一固定主播
+                    </div>
+                </div>
+                
+                <div class="advantage-card" data-delay="2">
+                    <div class="advantage-number">4</div>
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="advantage-title">永不休息</h3>
+                    <p class="advantage-description">
+                        週末、假日、凌晨都有服務。美股開盤時間就是台灣晚上，正好是你通勤或放鬆的時候，隨時都有最新分析。
+                    </p>
+                    <div class="advantage-stat">
+                        24/7 全時服務 vs 週更或不定期更新
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 競品對比 -->
+            <div class="competitors-section">
+                <h2 class="competitors-title">看看市場上其他選擇的限制</h2>
+                <p class="competitors-subtitle">每個現有解決方案都有它的侷限性，只有 YourPods 能做到真正的即時個人化</p>
+                
+                <div class="competitors-grid">
+                    <!-- YourPods 優勢突出顯示 -->
+                    <div class="yourpods-highlight">
+                        <div class="competitor-card yourpods-advantage">
+                            <div class="advantage-badge">YourPods 優勢</div>
+                            <div class="competitor-logo">🎧</div>
+                            <h4 class="competitor-name">YourPods</h4>
+                            <p class="competitor-type">AI 即時語音分析</p>
+                            <div class="competitor-limitation">
+                                10 分鐘內即時生成、100% 個人化內容、三種熟悉語調、24/7 永不斷線
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 其他競品限制 -->
+                    <div class="other-competitors">
+                        <div class="competitor-card">
+                            <div class="competitor-logo">📻</div>
+                            <h4 class="competitor-name">股癌</h4>
+                            <p class="competitor-type">週更財經 Podcast</p>
+                            <div class="competitor-limitation">
+                                一週只更新兩次，內容精彩但跟不上市場節奏，重大事件發生時只能乾等
+                            </div>
+                        </div>
+                        
+                        <div class="competitor-card">
+                            <div class="competitor-logo">🌅</div>
+                            <h4 class="competitor-name">財經皓角</h4>
+                            <p class="competitor-type">每日財經 Podcast</p>
+                            <div class="competitor-limitation">
+                                雖然每日更新，但都是預錄內容，無法即時回應突發市場變化
+                            </div>
+                        </div>
+                        
+                        <div class="competitor-card">
+                            <div class="competitor-logo">📱</div>
+                            <h4 class="competitor-name">投資APP推播</h4>
+                            <p class="competitor-type">即時財經訊息</p>
+                            <div class="competitor-limitation">
+                                只有冰冷的文字通知，沒有深度分析，通勤時不方便閱讀長文
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="signup">
+        <!-- 背景裝飾 -->
+        <div class="bg-decoration">
+            <div class="bg-circle bg-circle-1"></div>
+            <div class="bg-circle bg-circle-2"></div>
+        </div>
+        
+        <div class="cta-container">
+            <div class="cta-card">
+                <div class="limited-badge">限量開放 100 位</div>
+                
+                <h1 class="cta-main-title">搶先體驗 YourPods</h1>
+                <p class="cta-subtitle">成為首批體驗 AI 即時美股語音分析的投資人</p>
+                
+                <div class="urgency-text">
+                    <span class="urgency-icon">⏰</span>
+                    <span>早鳥試用名額即將額滿</span>
+                </div>
+                
+                <div class="benefits-list">
+                    <h3 class="benefits-title">搶先試用你將獲得：</h3>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">✨</span>
+                        <span>免費 7 天完整功能體驗</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🎯</span>
+                        <span>專屬個人化美股語音分析</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">⚡</span>
+                        <span>重大事件 10 分鐘內即時解讀</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">🎙️</span>
+                        <span>三種語音風格無限試聽</span>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">👥</span>
+                        <span>直接向開發團隊反饋建議</span>
+                    </div>
+                </div>
+                
+                <div class="signup-form">
+                    <h3 class="form-title">立即加入候補名單</h3>
+                    <form id="signupForm" onsubmit="handleSignup(event)">
+                        <div class="form-group">
+                            <input 
+                                type="email" 
+                                class="form-input" 
+                                placeholder="輸入你的 Email 地址"
+                                required
+                                id="emailInput"
+                            >
+                        </div>
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            <span class="btn-text">搶先加入候補名單</span>
+                            <div class="submit-loading-spinner"></div>
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="trust-indicators-cta">
+                    <div class="trust-item-cta">
+                        <span class="trust-icon">🔒</span>
+                        <span>Email 絕不外洩</span>
+                    </div>
+                    <div class="trust-item-cta">
+                        <span class="trust-icon">🚫</span>
+                        <span>無垃圾郵件</span>
+                    </div>
+                    <div class="trust-item-cta">
+                        <span class="trust-icon">✅</span>
+                        <span>隨時可取消訂閱</span>
+                    </div>
+                </div>
+                
+                <div class="social-proof">
+                    <p class="proof-text">已有 87 位投資朋友加入候補名單</p>
+                    <div class="user-avatars">
+                        <div class="user-avatar">👨</div>
+                        <div class="user-avatar">👩</div>
+                        <div class="user-avatar">👱</div>
+                        <div class="user-avatar">👧</div>
+                        <div class="user-avatar">🧑</div>
+                    </div>
+                    <p class="countdown">僅剩 13 個名額！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 隱藏的音頻元素，用於預載 -->
+    <audio id="demo-audio" preload="metadata" style="display: none;">
+        <source src="./demo-audio.mp4" type="audio/mp4">
+        <source src="./demo-audio.mp3" type="audio/mpeg">
+        您的瀏覽器不支援音頻播放。
+    </audio>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js'
+        import { getDatabase, ref, push, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js'
+
+        // Firebase configuration - 請替換為您的實際配置
+        const firebaseConfig = {
+            apiKey: "your-api-key-here",
+            authDomain: "your-project.firebaseapp.com",
+            databaseURL: "https://your-project-default-rtdb.firebaseio.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "your-app-id"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // 將 Firebase 函數綁定到全局作用域
+        window.firebaseDatabase = database;
+        window.firebaseRef = ref;
+        window.firebasePush = push;
+        window.firebaseServerTimestamp = serverTimestamp;
+    </script>
+    
+    <script>
+        let audioElement = null;
+        let isPlaying = false;
+        
+        // 頁面載入時初始化音頻元素
+        document.addEventListener('DOMContentLoaded', () => {
+            audioElement = document.getElementById('demo-audio');
+            observeElements();
+            updateCountdown();
+            
+            // 檢查 Firebase 是否正確載入
+            setTimeout(() => {
+                if (typeof window.firebaseDatabase === 'undefined') {
+                    console.warn('Firebase 未正確載入，請檢查配置');
+                }
+            }, 2000);
+        });
+        
+        // Hero Section 音頻播放功能
+        function handleAudioPlay() {
+            const button = document.querySelector('.cta-button');
+            const playIcon = document.querySelector('.play-icon');
+            const buttonText = document.querySelector('.button-text');
+            
+            // 如果正在播放，暫停音頻
+            if (isPlaying) {
+                pauseAudio();
+                return;
+            }
+            
+            // 顯示 loading 狀態
+            button.classList.add('loading');
+            buttonText.textContent = '準備中...';
+            
+            // 重置音頻播放位置
+            if (audioElement) {
+                audioElement.currentTime = 0;
+                
+                // 播放音頻
+                const playPromise = audioElement.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // 播放成功
+                        button.classList.remove('loading');
+                        button.classList.add('playing');
+                        playIcon.textContent = '⏸️';
+                        buttonText.textContent = '播放中...';
+                        isPlaying = true;
+                    }).catch((error) => {
+                        // 播放失敗
+                        console.error('Audio play failed:', error);
+                        button.classList.remove('loading');
+                        buttonText.textContent = '播放失敗，請重試';
+                        setTimeout(() => {
+                            resetButton();
+                        }, 2000);
+                    });
+                }
+                
+                // 音頻播放結束事件
+                audioElement.addEventListener('ended', () => {
+                    resetButton();
+                }, { once: true });
+            }
+        }
+        
+        function pauseAudio() {
+            if (audioElement && isPlaying) {
+                audioElement.pause();
+                resetButton();
+            }
+        }
+        
+        function resetButton() {
+            const button = document.querySelector('.cta-button');
+            const playIcon = document.querySelector('.play-icon');
+            const buttonText = document.querySelector('.button-text');
+            
+            button.classList.remove('loading', 'playing');
+            playIcon.textContent = '▶️';
+            buttonText.textContent = '好啦我要聽看看';
+            isPlaying = false;
+        }
+        
+        // 語音試聽功能
+        function playVoiceDemo(voiceType) {
+            const buttons = document.querySelectorAll('.play-demo-btn');
+            const currentButton = buttons[voiceType - 1];
+            
+            // 重置所有按鈕
+            buttons.forEach(btn => {
+                btn.classList.remove('playing');
+                btn.innerHTML = `<span class="btn-icon">▶️</span><span>${btn.querySelector('span:last-child').textContent}</span>`;
+            });
+            
+            // 設置當前按鈕為播放狀態
+            currentButton.classList.add('playing');
+            currentButton.innerHTML = `<span class="btn-icon">⏸️</span><span>播放中...</span>`;
+            
+            // 模擬播放時間（實際應該連接真實音頻）
+            setTimeout(() => {
+                currentButton.classList.remove('playing');
+                currentButton.innerHTML = `<span class="btn-icon">▶️</span><span>${getOriginalText(voiceType)}</span>`;
+            }, 3000);
+            
+            // UTM 追蹤
+            console.log(`Voice demo played: ${voiceType}`);
+        }
+        
+        function getOriginalText(voiceType) {
+            const texts = {
+                1: '試聽專業風格',
+                2: '試聽老師風格',
+                3: '試聽聊天風格'
+            };
+            return texts[voiceType];
+        }
+        
+        // Firebase 註冊功能
+        async function handleSignup(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const emailInput = document.getElementById('emailInput');
+            const email = emailInput.value.trim();
+            
+            // 驗證 Email
+            if (!email || !email.includes('@')) {
+                alert('請輸入有效的 Email 地址');
+                return;
+            }
+            
+            // 檢查是否已經註冊過
+            if (await checkEmailExists(email)) {
+                alert('此 Email 已經在候補名單中了！');
+                return;
+            }
+            
+            // 設置 loading 狀態
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            try {
+                // 保存到 Firebase Database
+                const signupData = {
+                    email: email,
+                    timestamp: window.firebaseServerTimestamp(),
+                    source: 'landing_page',
+                    utmSource: getUTMParameter('utm_source'),
+                    utmMedium: getUTMParameter('utm_medium'),
+                    utmCampaign: getUTMParameter('utm_campaign'),
+                    userAgent: navigator.userAgent,
+                    referrer: document.referrer || 'direct'
+                };
+                
+                // 推送到 Firebase
+                const signupsRef = window.firebaseRef(window.firebaseDatabase, 'signups');
+                await window.firebasePush(signupsRef, signupData);
+                
+                // 成功狀態
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                submitBtn.style.background = 'linear-gradient(135deg, #48bb78, #38a169)';
+                submitBtn.querySelector('.btn-text').textContent = '已成功加入候補名單！';
+                
+                // 追蹤成功事件
+                console.log('Email saved to Firebase:', email);
+                trackEvent('signup_completed', { email: email });
+                
+                // 更新社交證明
+                updateSocialProof();
+                
+                // 重置表單
+                setTimeout(() => {
+                    emailInput.value = '';
+                    submitBtn.style.background = 'linear-gradient(135deg, #ed8936, #dd6b20)';
+                    submitBtn.querySelector('.btn-text').textContent = '搶先加入候補名單';
+                }, 3000);
+                
+            } catch (error) {
+                console.error('Firebase save error:', error);
+                
+                // 錯誤處理
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                submitBtn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                submitBtn.querySelector('.btn-text').textContent = '註冊失敗，請重試';
+                
+                // 顯示錯誤訊息
+                alert('註冊過程中發生錯誤，請檢查網路連線後重試');
+                
+                // 5秒後重置按鈕
+                setTimeout(() => {
+                    submitBtn.style.background = 'linear-gradient(135deg, #ed8936, #dd6b20)';
+                    submitBtn.querySelector('.btn-text').textContent = '搶先加入候補名單';
+                }, 5000);
+            }
+        }
+        
+        // 檢查 Email 是否已存在
+        async function checkEmailExists(email) {
+            try {
+                // 這裡可以添加查詢邏輯，檢查 email 是否已存在
+                // 由於 Firebase Realtime Database 的查詢限制，
+                // 建議在後端實現或使用 Firestore
+                return false; // 暫時返回 false
+            } catch (error) {
+                console.error('Check email error:', error);
+                return false;
+            }
+        }
+        
+        // 獲取 UTM 參數
+        function getUTMParameter(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param) || '';
+        }
+        
+        // 事件追蹤
+        function trackEvent(eventName, properties) {
+            // Google Analytics 或其他追蹤工具整合
+            console.log('Event tracked:', eventName, properties);
+            
+            // 如果有 Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, properties);
+            }
+            
+            // 如果有 Facebook Pixel
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', properties);
+            }
+        }
+        
+        function updateSocialProof() {
+            const proofText = document.querySelector('.proof-text');
+            const countdown = document.querySelector('.countdown');
+            
+            // 更新數字（實際應該從 Firebase 獲取真實數據）
+            const currentCount = 87;
+            const newCount = currentCount + 1;
+            const remaining = 100 - newCount;
+            
+            proofText.textContent = `已有 ${newCount} 位投資朋友加入候補名單`;
+            countdown.textContent = `僅剩 ${remaining} 個名額！`;
+            
+            // 添加動畫效果
+            proofText.style.animation = 'pulse 0.5s ease-in-out';
+            countdown.style.animation = 'pulse 0.5s ease-in-out';
+        }
+        
+        // 實時更新倒數
+        function updateCountdown() {
+            const countdown = document.querySelector('.countdown');
+            
+            // 模擬實時更新（實際應該從 Firebase 獲取真實數據）
+            setTimeout(() => {
+                countdown.style.color = '#ef4444';
+                countdown.style.animation = 'pulse 1s infinite';
+            }, 5000);
+        }
+        
+        // 滾動動畫觸發
+        function observeElements() {
+            const problemCards = document.querySelectorAll('.problem-card');
+            const solutionCards = document.querySelectorAll('.solution-card');
+            const advantageCards = document.querySelectorAll('.advantage-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const delay = parseFloat(entry.target.dataset.delay) * 1000 || 0;
+                        setTimeout(() => {
+                            entry.target.classList.add('animate');
+                        }, delay);
+                    }
+                });
+            }, {
+                threshold: 0.3
+            });
+            
+            [...problemCards, ...solutionCards, ...advantageCards].forEach((card) => {
+                observer.observe(card);
+            });
+        }
+        
+        // 通知循環動畫
+        function loopNotification() {
+            const notification = document.querySelector('.notification');
+            if (notification) {
+                setTimeout(() => {
+                    notification.style.animation = 'none';
+                    notification.offsetHeight; // 觸發重繪
+                    notification.style.animation = 'slideInNotification 0.8s ease-out forwards';
+                }, 6000);
+            }
+        }
+        
+        // 啟動循環
+        setTimeout(loopNotification, 6000);
+        setInterval(loopNotification, 10000);
+    </script>
+</body>
+</html>
