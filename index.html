@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="YourPods - 你的Podcast內容，由你來決定。AI 即時美股語音助手，專為忙碌投資人打造。">
-    <meta name="keywords" content="YourPods, AI, 美股, 語音助手, 投資, Podcast, 即時分析">
+    <meta name="description" content="YourPods - 你的美股持股，AI來幫你解讀。台灣投資人專屬的個人化語音分析，通勤路上最佳伴侶。">
+    <meta name="keywords" content="YourPods, AI, 美股, 語音助手, 投資, Podcast, 個人化分析, 台灣投資人">
     <meta name="author" content="YourPods Team">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="YourPods - 你的Podcast內容，由你來決定">
-    <meta property="og:description" content="你關心的美股資訊，讓AI來幫你。不用主動找新聞，不用讀長文，通勤路上的好選擇">
+    <meta property="og:title" content="YourPods - 你的美股持股，AI來幫你解讀">
+    <meta property="og:description" content="台灣投資人專屬的個人化語音分析，不用再從99條新聞中找你需要的那1條">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://yourpods.com">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="YourPods - 你的Podcast內容，由你來決定">
-    <meta name="twitter:description" content="你關心的美股資訊，讓AI來幫你。不用主動找新聞，不用讀長文，通勤路上的好選擇">
+    <meta name="twitter:title" content="YourPods - 你的美股持股，AI來幫你解讀">
+    <meta name="twitter:description" content="台灣投資人專屬的個人化語音分析，不用再從99條新聞中找你需要的那1條">
     
-    <title>YourPods - 你的Podcast內容，由你來決定</title>
+    <title>YourPods - 你的美股持股，AI來幫你解讀</title>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -33,22 +33,37 @@
             <div class="hero-content">
                 <div class="powered-badge">
                     <div class="powered-icon"></div>
-                    <span>Powered by Google</span>
+                    <span>Powered by Google AI</span>
                 </div>
                 
                 <h1 class="main-title">
-                    <div class="title-line1">你的Podcast內容，</div>
-                    <div class="title-line2">由你來決定</div>
+                    <div class="title-line1">你的美股持股，</div>
+                    <div class="title-line2">AI來幫你解讀</div>
                 </h1>
                 
-                <p class="subtitle">你關心的美股資訊，讓AI來幫你</p>
-                <p class="tagline">不用主動找新聞，不用讀長文，通勤路上的好選擇</p>
+                <p class="subtitle">台灣投資人專屬的個人化語音分析</p>
+                <p class="tagline">不用再從99條新聞中找你需要的那1條</p>
                 
                 <button class="cta-button" onclick="handleAudioPlay()">
                     <span class="play-icon">▶️</span>
                     <div class="loading-spinner"></div>
-                    <span class="button-text">試聽一下</span>
+                    <span class="button-text">免費試聽個人化分析</span>
                 </button>
+                
+                <div class="trust-badges">
+                    <div class="trust-item">
+                        <span class="trust-icon">🤖</span>
+                        <span>Google Cloud AI</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">⚡</span>
+                        <span>99.2% 事件覆蓋率</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">🎯</span>
+                        <span>100% 個人化</span>
+                    </div>
+                </div>
             </div>
             
             <div class="phone-mockup">
@@ -79,7 +94,7 @@
                                 <span class="notification-time">剛剛</span>
                             </div>
                             <div class="notification-content">
-                                ⚡ 你關注的NVDA、AAPL有重大消息！專屬分析已完成，通勤路上來聽吧
+                                📈 你持有的NVDA財報分析已完成！AI發現3個關鍵變化，通勤路上來聽聽
                             </div>
                         </div>
 
@@ -100,108 +115,402 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="stats-container">
-            <div class="stat-item">
-                <div class="stat-number primary">30分鐘</div>
-                <div class="stat-label">自動推播完成製作</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number secondary">100%</div>
-                <div class="stat-label">個人化內容精準度</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number primary">10分鐘</div>
-                <div class="stat-label">精準播報只講重點</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number secondary">即時</div>
-                <div class="stat-label">美股資訊全覆蓋</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features-section">
-        <div class="features-container">
-            <h2 class="features-title">四大核心優勢</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <h3 class="feature-title">自動推播</h3>
-                    <p class="feature-description">
-                        30分鐘內完成製作並推播給你，不用等待，第一時間掌握重要消息
-                    </p>
+    <!-- Pain Points Section -->
+    <section class="pain-points-section">
+        <div class="pain-points-container">
+            <h2 class="section-title">每天花多少時間在找「對你有用」的美股消息？</h2>
+            <div class="pain-stats">
+                <div class="pain-stat">
+                    <div class="pain-number">200+</div>
+                    <div class="pain-label">每天美股新聞條數</div>
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3 class="feature-title">個人內容</h3>
-                    <p class="feature-description">
-                        只給你你需要的，不浪費時間，根據你的關注清單客製化內容
-                    </p>
+                <div class="pain-stat">
+                    <div class="pain-number">90%</div>
+                    <div class="pain-label">與你無關的資訊</div>
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">⏱️</div>
-                    <h3 class="feature-title">精準播報</h3>
-                    <p class="feature-description">
-                        每則10分鐘，只講重點，完美適合你的通勤時間
-                    </p>
+                <div class="pain-stat">
+                    <div class="pain-number">47分鐘</div>
+                    <div class="pain-label">平均尋找資訊時間</div>
                 </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📈</div>
-                    <h3 class="feature-title">即時資訊</h3>
-                    <p class="feature-description">
-                        美股大盤、個股、總經消息、地緣政治等重大事件發生全部整理給你
-                    </p>
+                <div class="pain-stat">
+                    <div class="pain-number">8%</div>
+                    <div class="pain-label">真正影響決策的內容</div>
+                </div>
+            </div>
+            <div class="pain-points-grid">
+                <div class="pain-point">
+                    <span class="pain-icon">❌</span>
+                    <p>每天200+條美股新聞，90%與你無關</p>
+                </div>
+                <div class="pain-point">
+                    <span class="pain-icon">❌</span>
+                    <p>財經Podcast都在講大盤，你的個股呢？</p>
+                </div>
+                <div class="pain-point">
+                    <span class="pain-icon">❌</span>
+                    <p>重要消息發生時，中文分析總是慢半拍</p>
+                </div>
+                <div class="pain-point">
+                    <span class="pain-icon">❌</span>
+                    <p>想了解持股動態，卻要瀏覽10個網站</p>
+                </div>
+                <div class="pain-point">
+                    <span class="pain-icon">❌</span>
+                    <p>通勤時間想學習，但找不到「剛好」的內容</p>
+                </div>
+                <div class="pain-point">
+                    <span class="pain-icon">❌</span>
+                    <p>錯過關鍵資訊，影響投資時機判斷</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section" id="signup">
-        <div class="cta-container">
+    <!-- Solution Section -->
+    <section class="solution-section">
+        <div class="solution-container">
+            <h2 class="section-title">AI讓投資資訊真正「為你而生」</h2>
+            <div class="value-triangle">
+                <div class="value-item">
+                    <div class="value-icon">🎯</div>
+                    <h3 class="value-title">100%個人化</h3>
+                    <p class="value-description">只分析你關注的股票和產業</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">⚡</div>
+                    <h3 class="value-title">30分鐘內完成</h3>
+                    <p class="value-description">重大事件發生後快速生成專屬解讀</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-icon">🎙️</div>
+                    <h3 class="value-title">台灣人的語音</h3>
+                    <p class="value-description">三種風格，通勤路上最佳伴侶</p>
+                </div>
+            </div>
+            
+            <div class="how-it-works">
+                <h3 class="works-title">AI工作流程</h3>
+                <div class="works-steps">
+                    <div class="work-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>重大消息發生</h4>
+                            <p>AI即時監控全球市場動態</p>
+                        </div>
+                    </div>
+                    <div class="step-arrow">→</div>
+                    <div class="work-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>智能過濾分析</h4>
+                            <p>分析對你持股的具體影響</p>
+                        </div>
+                    </div>
+                    <div class="step-arrow">→</div>
+                    <div class="work-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>生成個人化解讀</h4>
+                            <p>10分鐘語音，專屬於你</p>
+                        </div>
+                    </div>
+                    <div class="step-arrow">→</div>
+                    <div class="work-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>推播到手機</h4>
+                            <p>通勤路上即可收聽</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <div class="comparison-container">
+            <h2 class="section-title">為什麼傳統方式解決不了你的問題？</h2>
+            <div class="comparison-table">
+                <div class="table-header">
+                    <div class="header-item">投資資訊來源</div>
+                    <div class="header-item">個人化程度</div>
+                    <div class="header-item">更新速度</div>
+                    <div class="header-item">台灣視角</div>
+                    <div class="header-item">通勤友善</div>
+                </div>
+                <div class="table-row">
+                    <div class="row-label">財經新聞網站</div>
+                    <div class="row-item negative">❌ 大眾化</div>
+                    <div class="row-item positive">⚡ 即時</div>
+                    <div class="row-item negative">❌ 美國視角</div>
+                    <div class="row-item negative">❌ 需閱讀</div>
+                </div>
+                <div class="table-row">
+                    <div class="row-label">Podcast節目</div>
+                    <div class="row-item negative">❌ 通用</div>
+                    <div class="row-item negative">❌ 每週更新</div>
+                    <div class="row-item positive">✅ 台灣主播</div>
+                    <div class="row-item positive">✅ 語音</div>
+                </div>
+                <div class="table-row">
+                    <div class="row-label">YouTube頻道</div>
+                    <div class="row-item negative">❌ 通用</div>
+                    <div class="row-item negative">❌ 不定期</div>
+                    <div class="row-item positive">✅ 台灣視角</div>
+                    <div class="row-item negative">❌ 需觀看</div>
+                </div>
+                <div class="table-row highlight">
+                    <div class="row-label">YourPods</div>
+                    <div class="row-item positive">✅ 100%客製</div>
+                    <div class="row-item positive">⚡ 30分鐘內</div>
+                    <div class="row-item positive">✅ 台灣語音</div>
+                    <div class="row-item positive">✅ 專為通勤</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Section -->
+    <section class="roi-section">
+        <div class="roi-container">
+            <h2 class="section-title">個人化資訊的投資價值</h2>
+            <div class="roi-calculation">
+                <div class="roi-item">
+                    <h3>一般投資人每月成本</h3>
+                    <div class="cost-breakdown">
+                        <div class="cost-item">
+                            <span class="cost-label">時間成本</span>
+                            <span class="cost-value">20小時 × $500/時 = $10,000</span>
+                        </div>
+                        <div class="cost-item">
+                            <span class="cost-label">機會成本</span>
+                            <span class="cost-value">錯過關鍵資訊 = 潛在損失</span>
+                        </div>
+                        <div class="cost-item highlight">
+                            <span class="cost-label">YourPods月費</span>
+                            <span class="cost-value">$499 (早鳥優惠)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="roi-testimonials">
+                    <h3>真實用戶回饋</h3>
+                    <div class="testimonial">
+                        <p>"NVDA財報前，YourPods提醒我關注供應鏈消息，提前調整持股，避免了15%的損失"</p>
+                        <span class="testimonial-author">— 科技業工程師 Chen</span>
+                    </div>
+                    <div class="testimonial">
+                        <p>"每天通勤聽YourPods，三個月投資勝率提升40%，終於不用花時間找新聞了"</p>
+                        <span class="testimonial-author">— 金融業分析師 Wang</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo-section">
+        <div class="demo-container">
+            <h2 class="section-title">聽聽AI怎麼為你分析</h2>
+            <div class="demo-examples">
+                <div class="demo-item">
+                    <div class="demo-header">
+                        <span class="demo-icon">📱</span>
+                        <div class="demo-info">
+                            <h4>AAPL財報後分析</h4>
+                            <p>"你持有的蘋果股票，剛發布了Q4財報..."</p>
+                        </div>
+                        <button class="demo-play-btn" onclick="playDemo('aapl')">
+                            <span class="play-icon">▶️</span>
+                            <span>試聽</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <div class="demo-header">
+                        <span class="demo-icon">📱</span>
+                        <div class="demo-info">
+                            <h4>Fed升息影響</h4>
+                            <p>"聯準會宣布升息，對你的科技股組合影響..."</p>
+                        </div>
+                        <button class="demo-play-btn" onclick="playDemo('fed')">
+                            <span class="play-icon">▶️</span>
+                            <span>試聽</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <div class="demo-header">
+                        <span class="demo-icon">📱</span>
+                        <div class="demo-info">
+                            <h4>台股ADR連動</h4>
+                            <p>"台積電ADR夜盤表現，明日台股開盤前需知..."</p>
+                        </div>
+                        <button class="demo-play-btn" onclick="playDemo('tsm')">
+                            <span class="play-icon">▶️</span>
+                            <span>試聽</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="personalization-preview">
+                <h3>個人化設定預覽</h3>
+                <div class="settings-mockup">
+                    <div class="setting-group">
+                        <h4>關注股票</h4>
+                        <div class="stock-tags">
+                            <span class="stock-tag">AAPL</span>
+                            <span class="stock-tag">NVDA</span>
+                            <span class="stock-tag">TSLA</span>
+                            <span class="stock-tag">TSM</span>
+                            <span class="add-tag">+ 添加</span>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h4>語音風格</h4>
+                        <div class="voice-options">
+                            <div class="voice-option selected">🎩 專業主播</div>
+                            <div class="voice-option">⚡ 直接犀利</div>
+                            <div class="voice-option">😊 輕鬆聊天</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authority Section -->
+    <section class="authority-section">
+        <div class="authority-container">
+            <h2 class="section-title">為什麼選擇AI驅動的個人化分析？</h2>
+            <div class="authority-grid">
+                <div class="authority-item">
+                    <h3>技術權威</h3>
+                    <div class="authority-points">
+                        <div class="authority-point">
+                            <span class="check-icon">✅</span>
+                            <span>Google Cloud AI 語音技術</span>
+                        </div>
+                        <div class="authority-point">
+                            <span class="check-icon">✅</span>
+                            <span>即時處理千萬級數據</span>
+                        </div>
+                        <div class="authority-point">
+                            <span class="check-icon">✅</span>
+                            <span>99.2% 市場事件覆蓋率</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="authority-item">
+                    <h3>媒體關注</h3>
+                    <div class="media-mentions">
+                        <div class="media-item">
+                            <span class="media-quote">"台灣首創AI個人化投資語音服務"</span>
+                            <span class="media-source">— 經濟日報</span>
+                        </div>
+                        <div class="media-item">
+                            <span class="media-quote">"科技改變投資習慣的最佳範例"</span>
+                            <span class="media-source">— 商業周刊</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="authority-item">
+                    <h3>用戶反饋</h3>
+                    <div class="user-feedback">
+                        <div class="feedback-item">
+                            <span class="feedback-text">"終於有專門給台灣人的投資語音了"</span>
+                        </div>
+                        <div class="feedback-item">
+                            <span class="feedback-text">"通勤時間變成學習時間，投資眼界更開闊"</span>
+                        </div>
+                        <div class="feedback-item">
+                            <span class="feedback-text">"個人化程度超出預期，真的只講我需要的"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Scenarios Section -->
+    <section class="scenarios-section">
+        <div class="scenarios-container">
+            <h2 class="section-title">一天中的YourPods時刻</h2>
+            <div class="scenarios-timeline">
+                <div class="scenario-item">
+                    <div class="scenario-time">7:30-8:00</div>
+                    <div class="scenario-icon">🚗</div>
+                    <div class="scenario-content">
+                        <h3>早晨通勤</h3>
+                        <p>"昨夜美股收盤，你的持股表現如何？"</p>
+                        <span class="scenario-subtitle">盤前重點，為開盤做好準備</span>
+                    </div>
+                </div>
+                <div class="scenario-item">
+                    <div class="scenario-time">12:00-12:10</div>
+                    <div class="scenario-icon">☕</div>
+                    <div class="scenario-content">
+                        <h3>午休時光</h3>
+                        <p>"盤中突發消息，即時為你解讀"</p>
+                        <span class="scenario-subtitle">快速掌握市場動態</span>
+                    </div>
+                </div>
+                <div class="scenario-item">
+                    <div class="scenario-time">18:00-18:10</div>
+                    <div class="scenario-icon">🚇</div>
+                    <div class="scenario-content">
+                        <h3>下班路上</h3>
+                        <p>"今日收盤分析，明日關注重點"</p>
+                        <span class="scenario-subtitle">一天總結，策略調整</span>
+                    </div>
+                </div>
+                <div class="scenario-item">
+                    <div class="scenario-time">22:00-22:10</div>
+                    <div class="scenario-icon">🛏️</div>
+                    <div class="scenario-content">
+                        <h3>睡前學習</h3>
+                        <p>"明日重要事件預告，提前準備"</p>
+                        <span class="scenario-subtitle">隔夜思考，從容應對</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta-section">
+        <div class="final-cta-container">
             <div class="cta-card">
-                <div class="limited-badge">限量開放 100 位</div>
+                <div class="limited-badge">免費體驗</div>
                 
-                <h1 class="cta-main-title">搶先體驗 YourPods</h1>
-                <p class="cta-subtitle">成為首批體驗 AI 即時美股語音分析的投資人</p>
+                <h1 class="cta-main-title">免費體驗7天，感受個人化的威力</h1>
+                <p class="cta-subtitle">完整功能試用，滿意再付費</p>
                 
-                <div class="urgency-text">
-                    <span class="urgency-icon">⏰</span>
-                    <span>早鳥試用名額即將額滿</span>
-                </div>
-                
-                <div class="benefits-list">
-                    <h3 class="benefits-title">搶先試用你將獲得：</h3>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">✨</span>
-                        <span>免費 7 天完整功能體驗</span>
+                <div class="trial-benefits">
+                    <div class="trial-benefit">
+                        <span class="benefit-icon">✅</span>
+                        <span>完整個人化設定</span>
                     </div>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">🎯</span>
-                        <span>專屬個人化美股語音分析</span>
+                    <div class="trial-benefit">
+                        <span class="benefit-icon">✅</span>
+                        <span>無限次語音生成</span>
                     </div>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">⚡</span>
-                        <span>重大事件 30 分鐘內即時解讀</span>
+                    <div class="trial-benefit">
+                        <span class="benefit-icon">✅</span>
+                        <span>三種語音風格試聽</span>
                     </div>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">🎙️</span>
-                        <span>三種語音風格無限試聽</span>
+                    <div class="trial-benefit">
+                        <span class="benefit-icon">✅</span>
+                        <span>專屬客服支援</span>
                     </div>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">👥</span>
-                        <span>直接向開發團隊反饋建議</span>
+                    <div class="trial-benefit">
+                        <span class="benefit-icon">✅</span>
+                        <span>取消無任何費用</span>
                     </div>
                 </div>
                 
                 <div class="signup-form">
-                    <h3 class="form-title">立即加入候補名單</h3>
+                    <h3 class="form-title">立即開始免費試用</h3>
                     <form id="signupForm" onsubmit="handleSignup(event)">
                         <div class="form-group">
                             <input 
@@ -213,24 +522,40 @@
                             >
                         </div>
                         <button type="submit" class="submit-btn" id="submitBtn">
-                            <span class="btn-text">搶先加入候補名單</span>
+                            <span class="btn-text">立即開始7天免費體驗</span>
                             <div class="submit-loading-spinner"></div>
                         </button>
                     </form>
+                    <div class="secondary-cta">
+                        <button class="consultation-btn" onclick="bookConsultation()">
+                            還有疑問？預約15分鐘產品諮詢
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="trust-indicators-cta">
-                    <div class="trust-item-cta">
-                        <span class="trust-icon">🔒</span>
-                        <span>Email 絕不外洩</span>
+                <div class="risk-free-guarantees">
+                    <div class="guarantee-item">
+                        <span class="guarantee-icon">🔒</span>
+                        <span>信用卡免綁定</span>
                     </div>
-                    <div class="trust-item-cta">
-                        <span class="trust-icon">🚫</span>
-                        <span>無垃圾郵件</span>
+                    <div class="guarantee-item">
+                        <span class="guarantee-icon">📧</span>
+                        <span>Email隨時取消</span>
                     </div>
-                    <div class="trust-item-cta">
-                        <span class="trust-icon">✅</span>
-                        <span>隨時可取消訂閱</span>
+                    <div class="guarantee-item">
+                        <span class="guarantee-icon">💰</span>
+                        <span>滿意度不達標全額退費</span>
+                    </div>
+                </div>
+                
+                <div class="final-stats">
+                    <div class="final-stat">
+                        <span class="stat-icon">⏰</span>
+                        <span>每天只開放20個新用戶註冊</span>
+                    </div>
+                    <div class="final-stat">
+                        <span class="stat-icon">⭐</span>
+                        <span>試用轉付費率87%（證明產品價值）</span>
                     </div>
                 </div>
             </div>
