@@ -3,6 +3,7 @@
 // ===================
 let audioElement = null;
 let isPlaying = false;
+let currentDemo = null;
 
 // ===================
 // INITIALIZATION
@@ -10,7 +11,6 @@ let isPlaying = false;
 document.addEventListener('DOMContentLoaded', () => {
     audioElement = document.getElementById('demo-audio');
     observeElements();
-    updateCountdown();
     
     // 檢查 Firebase 是否正確載入
     setTimeout(() => {
@@ -72,6 +72,20 @@ function handleAudioPlay() {
         audioElement.addEventListener('ended', () => {
             resetButton();
         }, { once: true });
+    } else {
+        // 如果沒有音頻文件，模擬播放
+        setTimeout(() => {
+            button.classList.remove('loading');
+            button.classList.add('playing');
+            playIcon.textContent = '⏸️';
+            buttonText.textContent = '播放中...';
+            isPlaying = true;
+            
+            // 模擬播放結束
+            setTimeout(() => {
+                resetButton();
+            }, 5000);
+        }, 1000);
     }
 }
 
@@ -95,54 +109,98 @@ function resetButton() {
     
     button.classList.remove('loading', 'playing');
     playIcon.textContent = '▶️';
-    buttonText.textContent = '好啦我要聽看看';
+    buttonText.textContent = '免費試聽個人化分析';
     isPlaying = false;
 }
 
 // ===================
-// VOICE DEMO FUNCTIONALITY
+// DEMO FUNCTIONALITY
 // ===================
 
 /**
- * 播放語音風格演示
- * @param {number} voiceType - 語音類型 (1-3)
+ * 播放演示音頻
+ * @param {string} demoType - 演示類型 ('aapl', 'fed', 'tsm')
  */
-function playVoiceDemo(voiceType) {
-    const buttons = document.querySelectorAll('.play-demo-btn');
-    const currentButton = buttons[voiceType - 1];
+function playDemo(demoType) {
+    const allPlayBtns = document.querySelectorAll('.demo-play-btn');
+    const currentBtn = Array.from(allPlayBtns).find(btn => 
+        btn.onclick && btn.onclick.toString().includes(demoType)
+    );
     
-    // 重置所有按鈕
-    buttons.forEach(btn => {
-        btn.classList.remove('playing');
-        btn.innerHTML = `<span class="btn-icon">▶️</span><span>${btn.querySelector('span:last-child').textContent}</span>`;
-    });
+    if (!currentBtn) return;
+    
+    // 停止其他正在播放的演示
+    stopAllDemos();
     
     // 設置當前按鈕為播放狀態
-    currentButton.classList.add('playing');
-    currentButton.innerHTML = `<span class="btn-icon">⏸️</span><span>播放中...</span>`;
+    currentBtn.classList.add('playing');
+    const playIcon = currentBtn.querySelector('.play-icon');
+    const btnText = currentBtn.querySelector('span:last-child');
+    const originalText = btnText.textContent;
+    
+    playIcon.textContent = '⏸️';
+    btnText.textContent = '播放中...';
+    currentDemo = demoType;
+    
+    // 追蹤事件
+    trackEvent('demo_played', { demo_type: demoType });
     
     // 模擬播放時間（實際應該連接真實音頻）
     setTimeout(() => {
-        currentButton.classList.remove('playing');
-        currentButton.innerHTML = `<span class="btn-icon">▶️</span><span>${getOriginalText(voiceType)}</span>`;
-    }, 3000);
-    
-    // UTM 追蹤
-    console.log(`Voice demo played: ${voiceType}`);
+        if (currentDemo === demoType) {
+            stopDemo(currentBtn, playIcon, btnText, originalText);
+        }
+    }, 15000); // 15秒演示
 }
 
 /**
- * 獲取原始按鈕文字
- * @param {number} voiceType - 語音類型
- * @returns {string} 原始文字
+ * 停止所有演示
  */
-function getOriginalText(voiceType) {
-    const texts = {
-        1: '試聽專業風格',
-        2: '試聽老師風格',
-        3: '試聽聊天風格'
-    };
-    return texts[voiceType];
+function stopAllDemos() {
+    const allPlayBtns = document.querySelectorAll('.demo-play-btn');
+    allPlayBtns.forEach(btn => {
+        btn.classList.remove('playing');
+        const playIcon = btn.querySelector('.play-icon');
+        const btnText = btn.querySelector('span:last-child');
+        if (playIcon) playIcon.textContent = '▶️';
+        if (btnText) btnText.textContent = '試聽';
+    });
+    currentDemo = null;
+}
+
+/**
+ * 停止特定演示
+ */
+function stopDemo(btn, playIcon, btnText, originalText) {
+    btn.classList.remove('playing');
+    playIcon.textContent = '▶️';
+    btnText.textContent = originalText;
+    currentDemo = null;
+}
+
+/**
+ * 預約產品諮詢
+ */
+function bookConsultation() {
+    // 追蹤事件
+    trackEvent('consultation_clicked');
+    
+    // 可以整合 Calendly 或其他預約系統
+    const calendlyUrl = 'https://calendly.com/yourpods/15min-consultation';
+    
+    // 檢查是否在行動裝置上
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // 行動裝置直接開啟連結
+        window.open(calendlyUrl, '_blank');
+    } else {
+        // 桌面版可以使用彈窗或內嵌
+        window.open(calendlyUrl, 'consultation', 'width=800,height=600,scrollbars=yes,resizable=yes');
+    }
+    
+    // 備用方案：如果沒有 Calendly，可以使用 email
+    // window.location.href = 'mailto:hello@yourpods.com?subject=預約產品諮詢&body=我想了解更多關於YourPods的資訊，請安排15分鐘的產品諮詢。';
 }
 
 // ===================
@@ -161,14 +219,14 @@ async function handleSignup(event) {
     const email = emailInput.value.trim();
     
     // 驗證 Email
-    if (!email || !email.includes('@')) {
-        alert('請輸入有效的 Email 地址');
+    if (!email || !isValidEmail(email)) {
+        showMessage('請輸入有效的 Email 地址', 'error');
         return;
     }
     
     // 檢查是否已經註冊過
     if (await checkEmailExists(email)) {
-        alert('此 Email 已經在候補名單中了！');
+        showMessage('此 Email 已經在候補名單中了！', 'warning');
         return;
     }
     
@@ -180,38 +238,48 @@ async function handleSignup(event) {
         // 保存到 Firebase Database
         const signupData = {
             email: email,
-            timestamp: window.firebaseServerTimestamp(),
-            source: 'landing_page',
+            timestamp: window.firebaseServerTimestamp ? window.firebaseServerTimestamp() : Date.now(),
+            source: 'landing_page_v2',
             utmSource: getUTMParameter('utm_source'),
             utmMedium: getUTMParameter('utm_medium'),
             utmCampaign: getUTMParameter('utm_campaign'),
             userAgent: navigator.userAgent,
-            referrer: document.referrer || 'direct'
+            referrer: document.referrer || 'direct',
+            pageVersion: '2.0'
         };
         
         // 推送到 Firebase
-        const signupsRef = window.firebaseRef(window.firebaseDatabase, 'signups');
-        await window.firebasePush(signupsRef, signupData);
+        if (window.firebaseDatabase && window.firebaseRef && window.firebasePush) {
+            const signupsRef = window.firebaseRef(window.firebaseDatabase, 'signups');
+            await window.firebasePush(signupsRef, signupData);
+        } else {
+            // 如果 Firebase 不可用，記錄到 localStorage 作為備用
+            const backupData = JSON.parse(localStorage.getItem('yourpods_signups') || '[]');
+            backupData.push(signupData);
+            localStorage.setItem('yourpods_signups', JSON.stringify(backupData));
+        }
         
         // 成功狀態
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
         submitBtn.style.background = 'linear-gradient(135deg, #48bb78, #38a169)';
-        submitBtn.querySelector('.btn-text').textContent = '已成功加入候補名單！';
+        submitBtn.querySelector('.btn-text').textContent = '🎉 已成功加入候補名單！';
         
         // 追蹤成功事件
-        console.log('Email saved to Firebase:', email);
-        trackEvent('signup_completed', { email: email });
+        trackEvent('signup_completed', { email: email, source: 'landing_page_v2' });
+        
+        // 顯示成功訊息
+        showMessage('歡迎加入YourPods候補名單！我們會在產品上線時第一時間通知您。', 'success');
         
         // 重置表單
         setTimeout(() => {
             emailInput.value = '';
-            submitBtn.style.background = 'linear-gradient(135deg, #ed8936, #dd6b20)';
-            submitBtn.querySelector('.btn-text').textContent = '搶先加入候補名單';
-        }, 3000);
+            submitBtn.style.background = '';
+            submitBtn.querySelector('.btn-text').textContent = '立即開始7天免費體驗';
+        }, 5000);
         
     } catch (error) {
-        console.error('Firebase save error:', error);
+        console.error('Signup error:', error);
         
         // 錯誤處理
         submitBtn.classList.remove('loading');
@@ -220,14 +288,24 @@ async function handleSignup(event) {
         submitBtn.querySelector('.btn-text').textContent = '註冊失敗，請重試';
         
         // 顯示錯誤訊息
-        alert('註冊過程中發生錯誤，請檢查網路連線後重試');
+        showMessage('註冊過程中發生錯誤，請檢查網路連線後重試', 'error');
         
         // 5秒後重置按鈕
         setTimeout(() => {
-            submitBtn.style.background = 'linear-gradient(135deg, #ed8936, #dd6b20)';
-            submitBtn.querySelector('.btn-text').textContent = '搶先加入候補名單';
+            submitBtn.style.background = '';
+            submitBtn.querySelector('.btn-text').textContent = '立即開始7天免費體驗';
         }, 5000);
     }
+}
+
+/**
+ * 檢查 Email 格式是否有效
+ * @param {string} email - 要檢查的 email
+ * @returns {boolean} 是否有效
+ */
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
 
 /**
@@ -237,14 +315,68 @@ async function handleSignup(event) {
  */
 async function checkEmailExists(email) {
     try {
-        // 這裡可以添加查詢邏輯，檢查 email 是否已存在
-        // 由於 Firebase Realtime Database 的查詢限制，
-        // 建議在後端實現或使用 Firestore
-        return false; // 暫時返回 false
+        // 檢查 localStorage 備用數據
+        const backupData = JSON.parse(localStorage.getItem('yourpods_signups') || '[]');
+        const exists = backupData.some(signup => signup.email === email);
+        return exists;
     } catch (error) {
         console.error('Check email error:', error);
         return false;
     }
+}
+
+/**
+ * 顯示訊息提示
+ * @param {string} message - 訊息內容
+ * @param {string} type - 訊息類型 ('success', 'error', 'warning')
+ */
+function showMessage(message, type = 'info') {
+    // 創建訊息元素
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message-toast ${type}`;
+    messageDiv.textContent = message;
+    
+    // 添加樣式
+    messageDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#48bb78' : type === 'error' ? '#ef4444' : '#f59e0b'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 10000;
+        font-weight: 500;
+        max-width: 300px;
+        animation: slideInMessage 0.3s ease-out;
+    `;
+    
+    // 添加動畫樣式
+    if (!document.getElementById('message-styles')) {
+        const style = document.createElement('style');
+        style.id = 'message-styles';
+        style.textContent = `
+            @keyframes slideInMessage {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // 添加到頁面
+    document.body.appendChild(messageDiv);
+    
+    // 3秒後自動移除
+    setTimeout(() => {
+        messageDiv.style.animation = 'slideInMessage 0.3s ease-out reverse';
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.parentNode.removeChild(messageDiv);
+            }
+        }, 300);
+    }, 3000);
 }
 
 // ===================
@@ -266,56 +398,29 @@ function getUTMParameter(param) {
  * @param {string} eventName - 事件名稱
  * @param {Object} properties - 事件屬性
  */
-function trackEvent(eventName, properties) {
-    // Google Analytics 或其他追蹤工具整合
-    console.log('Event tracked:', eventName, properties);
+function trackEvent(eventName, properties = {}) {
+    // 添加通用屬性
+    const commonProperties = {
+        timestamp: new Date().toISOString(),
+        page_url: window.location.href,
+        user_agent: navigator.userAgent,
+        ...properties
+    };
     
-    // 如果有 Google Analytics
+    // Console 記錄
+    console.log('Event tracked:', eventName, commonProperties);
+    
+    // Google Analytics 4
     if (typeof gtag !== 'undefined') {
-        gtag('event', eventName, properties);
+        gtag('event', eventName, commonProperties);
     }
     
-    // 如果有 Facebook Pixel
+    // Facebook Pixel
     if (typeof fbq !== 'undefined') {
-        fbq('track', 'Lead', properties);
+        fbq('track', eventName === 'signup_completed' ? 'Lead' : 'ViewContent', commonProperties);
     }
-}
-
-// ===================
-// UI UPDATES
-// ===================
-
-/**
- * 更新社交證明數據
- */
-function updateSocialProof() {
-    const proofText = document.querySelector('.proof-text');
-    const countdown = document.querySelector('.countdown');
     
-    // 更新數字（實際應該從 Firebase 獲取真實數據）
-    const currentCount = 87;
-    const newCount = currentCount + 1;
-    const remaining = 100 - newCount;
-    
-    proofText.textContent = `已有 ${newCount} 位投資朋友加入候補名單`;
-    countdown.textContent = `僅剩 ${remaining} 個名額！`;
-    
-    // 添加動畫效果
-    proofText.style.animation = 'pulse 0.5s ease-in-out';
-    countdown.style.animation = 'pulse 0.5s ease-in-out';
-}
-
-/**
- * 實時更新倒數
- */
-function updateCountdown() {
-    const countdown = document.querySelector('.countdown');
-    
-    // 模擬實時更新（實際應該從 Firebase 獲取真實數據）
-    setTimeout(() => {
-        countdown.style.color = '#ef4444';
-        countdown.style.animation = 'pulse 1s infinite';
-    }, 5000);
+    // 其他追蹤工具可以在這裡添加
 }
 
 // ===================
@@ -326,25 +431,36 @@ function updateCountdown() {
  * 觀察元素並觸發滾動動畫
  */
 function observeElements() {
-    const problemCards = document.querySelectorAll('.problem-card');
-    const solutionCards = document.querySelectorAll('.solution-card');
-    const advantageCards = document.querySelectorAll('.advantage-card');
+    const animatedElements = document.querySelectorAll(`
+        .pain-point,
+        .value-item,
+        .work-step,
+        .demo-item,
+        .authority-item,
+        .scenario-item
+    `);
     
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
+        entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                const delay = parseFloat(entry.target.dataset.delay) * 1000 || 0;
+                const delay = index * 100; // 錯開動畫
                 setTimeout(() => {
-                    entry.target.classList.add('animate');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }, delay);
             }
         });
     }, {
-        threshold: 0.3
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
     });
     
-    [...problemCards, ...solutionCards, ...advantageCards].forEach((card) => {
-        observer.observe(card);
+    // 初始化動畫元素
+    animatedElements.forEach((element) => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        observer.observe(element);
     });
 }
 
@@ -362,13 +478,53 @@ function loopNotification() {
             notification.style.animation = 'none';
             notification.offsetHeight; // 觸發重繪
             notification.style.animation = 'slideInNotification 0.8s ease-out forwards';
-        }, 6000);
+        }, 8000);
     }
 }
 
 // 啟動循環
-setTimeout(loopNotification, 6000);
-setInterval(loopNotification, 10000);
+setTimeout(loopNotification, 8000);
+setInterval(loopNotification, 15000);
+
+// ===================
+// SMOOTH SCROLLING
+// ===================
+
+/**
+ * 平滑滾動到元素
+ * @param {string} targetId - 目標元素 ID
+ */
+function scrollToElement(targetId) {
+    const element = document.getElementById(targetId);
+    if (element) {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+// ===================
+// PAGE PERFORMANCE
+// ===================
+
+/**
+ * 頁面載入完成後的性能追蹤
+ */
+window.addEventListener('load', () => {
+    // 追蹤頁面載入時間
+    const loadTime = performance.now();
+    trackEvent('page_loaded', {
+        load_time: Math.round(loadTime),
+        page_version: '2.0'
+    });
+    
+    // 預載重要資源
+    if (audioElement) {
+        // 預載音頻的 metadata
+        audioElement.preload = 'metadata';
+    }
+});
 
 // ===================
 // GLOBAL FUNCTIONS (for onclick handlers)
@@ -376,5 +532,7 @@ setInterval(loopNotification, 10000);
 
 // 將函數綁定到全局作用域，以支援 HTML 中的 onclick 事件
 window.handleAudioPlay = handleAudioPlay;
-window.playVoiceDemo = playVoiceDemo;
+window.playDemo = playDemo;
 window.handleSignup = handleSignup;
+window.bookConsultation = bookConsultation;
+window.scrollToElement = scrollToElement;
