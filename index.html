@@ -3,68 +3,645 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="YourPods - AI 即時美股語音助手，專為忙碌投資人打造。重大消息10分鐘內即時分析，個人化內容，三種語音風格。">
-    <meta name="keywords" content="YourPods, AI, 美股, 語音助手, 投資, Podcast, 即時分析">
-    <meta name="author" content="YourPods Team">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="YourPods - AI 即時美股語音助手">
-    <meta property="og:description" content="重大消息10分鐘內即時分析，專為忙碌投資人打造的AI語音助手">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourpods.com">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="YourPods - AI 即時美股語音助手">
-    <meta name="twitter:description" content="重大消息10分鐘內即時分析，專為忙碌投資人打造的AI語音助手">
-    
-    <title>YourPods - AI 即時美股語音助手</title>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
+    <title>YourPods - 你的Podcast內容，由你來決定</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 2rem 1rem;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            z-index: 2;
+        }
+
+        /* Powered by badge */
+        .powered-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(138, 43, 226, 0.2);
+            border: 1px solid rgba(138, 43, 226, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            color: #bb86fc;
+            margin-bottom: 2rem;
+            gap: 0.5rem;
+        }
+
+        .powered-icon {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            border-radius: 50%;
+        }
+
+        /* 標題樣式 */
+        .main-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .title-line1 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .title-line2 {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        /* 個人化重點標示 */
+        .highlight-word {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            text-shadow: none;
+        }
+
+        .auto-highlight {
+            background: linear-gradient(135deg, #54a0ff, #00d2d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            text-shadow: none;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            background: linear-gradient(135deg, #8a2be2, #6a1b9a);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.3);
+            margin-bottom: 3rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(138, 43, 226, 0.4);
+            background: linear-gradient(135deg, #9932cc, #7b1fa2);
+        }
+
+        .play-icon {
+            font-size: 1.2rem;
+        }
+
+        /* 手機 Mockup - 更精緻版本 */
+        .phone-mockup {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .phone {
+            width: 280px;
+            height: 560px;
+            background: linear-gradient(145deg, #2c2c2c, #1a1a1a);
+            border-radius: 35px;
+            padding: 8px;
+            box-shadow: 
+                0 25px 60px rgba(0,0,0,0.6),
+                0 10px 30px rgba(0,0,0,0.4),
+                inset 0 1px 2px rgba(255,255,255,0.1);
+            position: relative;
+            transform: rotateY(-5deg) rotateX(2deg);
+            transition: all 0.3s ease;
+        }
+
+        .phone:hover {
+            transform: rotateY(-2deg) rotateX(1deg) scale(1.02);
+        }
+
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            z-index: 10;
+        }
+
+        .phone::after {
+            content: '';
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 27px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .phone-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.1) 0%,
+                transparent 50%,
+                rgba(0,0,0,0.1) 100%
+            );
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* 狀態欄 */
+        .status-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 44px;
+            background: rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 6;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .signal-bars {
+            display: flex;
+            gap: 1px;
+        }
+
+        .signal-bar {
+            width: 3px;
+            background: white;
+            border-radius: 1px;
+        }
+
+        .signal-bar:nth-child(1) { height: 4px; }
+        .signal-bar:nth-child(2) { height: 6px; }
+        .signal-bar:nth-child(3) { height: 8px; }
+        .signal-bar:nth-child(4) { height: 10px; }
+
+        .battery {
+            width: 24px;
+            height: 12px;
+            border: 1px solid white;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .battery::after {
+            content: '';
+            position: absolute;
+            right: -3px;
+            top: 3px;
+            width: 2px;
+            height: 6px;
+            background: white;
+            border-radius: 0 1px 1px 0;
+        }
+
+        .battery::before {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            right: 1px;
+            bottom: 1px;
+            background: white;
+            border-radius: 1px;
+        }
+
+        /* 推播通知 - 更精緻版本 */
+        .notification {
+            position: absolute;
+            top: 80px;
+            left: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.15),
+                0 4px 8px rgba(0,0,0,0.1);
+            animation: slideInNotification 2s ease-out;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .app-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            margin-right: 10px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .app-name {
+            font-weight: 600;
+            color: #333;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .notification-time {
+            color: #666;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .notification-content {
+            color: #444;
+            line-height: 1.5;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* App圖標網格背景 */
+        .app-grid {
+            position: absolute;
+            bottom: 100px;
+            left: 30px;
+            right: 30px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            opacity: 0.3;
+        }
+
+        .app-icon-grid {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* 統計數據區 */
+        .stats-section {
+            margin-top: 4rem;
+            padding: 0 1rem;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number.primary {
+            background: linear-gradient(135deg, #bb86fc, #6a1b9a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-number.secondary {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* 功能特點區 */
+        .features-section {
+            margin-top: 4rem;
+            padding: 0 1rem;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: white;
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.5;
+        }
+
+        /* 動畫 */
+        @keyframes slideInNotification {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 768px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .main-title {
+                font-size: 2.5rem;
+            }
+
+            .phone {
+                width: 320px;
+                height: 640px;
+                transform: none;
+            }
+
+            .phone:hover {
+                transform: scale(1.02);
+            }
+
+            .notification {
+                top: 80px;
+                left: 20px;
+                right: 20px;
+                padding: 16px;
+            }
+
+            .app-grid {
+                bottom: 120px;
+                left: 30px;
+                right: 30px;
+                gap: 20px;
+            }
+
+            .app-icon-grid {
+                width: 45px;
+                height: 45px;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .phone {
+                width: 280px;
+                height: 560px;
+            }
+
+            .notification {
+                top: 70px;
+                left: 18px;
+                right: 18px;
+                padding: 14px;
+            }
+
+            .app-grid {
+                bottom: 100px;
+                left: 25px;
+                right: 25px;
+                gap: 18px;
+            }
+
+            .app-icon-grid {
+                width: 40px;
+                height: 40px;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Hero Section -->
-    <section class="hero-section" id="hero">
-        <!-- 背景裝飾 -->
-        <div class="bg-decoration">
-            <div class="bg-circle bg-circle-1"></div>
-            <div class="bg-circle bg-circle-2"></div>
-        </div>
-        
+    <section class="hero-section">
         <div class="hero-container">
-            <!-- 左側內容 -->
             <div class="hero-content">
-                <h1 class="main-title">TSLA 跌了 4%，你還在睡？</h1>
-                <p class="subtitle">YourPods 已經準備好分析給你聽了喔</p>
-                <p class="value-prop">專為忙碌投資人打造的 AI 即時美股語音助手</p>
-                
-                <div class="button-container">
-                    <button class="cta-button" onclick="handleAudioPlay()">
-                        <span class="play-icon">▶️</span>
-                        <div class="loading-spinner"></div>
-                        <span class="button-text">好啦我要聽看看</span>
-                    </button>
+                <div class="powered-badge">
+                    <div class="powered-icon"></div>
+                    <span>Powered by Google</span>
                 </div>
+                
+                <h1 class="main-title">
+                    <div class="title-line1">你的Podcast內容，</div>
+                    <div class="title-line2">由你來決定</div>
+                </h1>
+                
+                <p class="subtitle">你關心的美股資訊，讓AI來幫你</p>
+                <p class="tagline">不用主動找新聞，不用讀長文，通勤路上的好選擇</p>
+                
+                <button class="cta-button" onclick="handleAudioPlay()">
+                    <span class="play-icon">▶️</span>
+                    <span>試聽一下</span>
+                </button>
             </div>
             
-            <!-- 右側手機 mockup -->
             <div class="phone-mockup">
                 <div class="phone">
                     <div class="phone-screen">
+                        <!-- 狀態欄 -->
+                        <div class="status-bar">
+                            <div class="status-left">
+                                <div class="signal-bars">
+                                    <div class="signal-bar"></div>
+                                    <div class="signal-bar"></div>
+                                    <div class="signal-bar"></div>
+                                    <div class="signal-bar"></div>
+                                </div>
+                                <span style="margin-left: 8px;">Chunghwa</span>
+                            </div>
+                            <div class="status-right">
+                                <span>100%</span>
+                                <div class="battery"></div>
+                            </div>
+                        </div>
+
                         <!-- 推播通知 -->
                         <div class="notification">
                             <div class="notification-header">
                                 <div class="app-icon">🎧</div>
                                 <span class="app-name">YourPods</span>
-                                <span class="notification-time">現在</span>
+                                <span class="notification-time">剛剛</span>
                             </div>
                             <div class="notification-content">
-                                你關注的 TSLA 出大事了，其他人都在聽分析，就你還不知道 😔
+                                ⚡ 你關注的NVDA、AAPL有重大消息！專屬分析已完成，通勤路上來聽吧
                             </div>
+                        </div>
+
+                        <!-- App圖標網格 -->
+                        <div class="app-grid">
+                            <div class="app-icon-grid"></div>
+                            <div class="app-icon-grid"></div>
+                            <div class="app-icon-grid"></div>
+                            <div class="app-icon-grid"></div>
+                            <div class="app-icon-grid"></div>
+                            <div class="app-icon-grid"></div>
+                            <div class="app-icon-grid"></div>
+                            <div class="app-icon-grid"></div>
                         </div>
                     </div>
                 </div>
@@ -72,445 +649,63 @@
         </div>
     </section>
 
-    <!-- Problem Section -->
-    <section class="problem-section" id="problems">
-        <!-- 背景裝飾 -->
-        <div class="bg-decoration">
-            <div class="bg-circle bg-circle-1"></div>
-            <div class="bg-circle bg-circle-2"></div>
-        </div>
-        
-        <div class="container">
-            <!-- 標題區 -->
-            <div class="section-header">
-                <h1 class="section-title">看看你都錯過了什麼...</h1>
-                <p class="section-subtitle">YourPods 一直在等你回來，但你卻讓機會從指縫中溜走</p>
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number primary">30分鐘</div>
+                <div class="stat-label">自動推播完成製作</div>
             </div>
-            
-            <!-- 問題卡片 -->
-            <div class="problems-container">
-                <div class="problem-card" data-delay="0.5">
-                    <div class="card-header">
-                        <div class="problem-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                            </svg>
-                        </div>
-                        <div class="card-content">
-                            <h3 class="problem-title">川普半夜發推文，你在睡覺</h3>
-                            <p class="problem-description">
-                                凌晨 3 點川普發推痛罵馬斯克，TSLA 開盤直接跌 4%。其他投資人早就知道了，就你還在做夢。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="problem-card" data-delay="1">
-                    <div class="card-header">
-                        <div class="problem-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
-                                <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-                            </svg>
-                        </div>
-                        <div class="card-content">
-                            <h3 class="problem-title">等股癌更新，機會都飛了</h3>
-                            <p class="problem-description">
-                                通常一週更新兩次的傳統 Podcast，等他分析完，市場早就變天了。你的錢等得起這種速度嗎？
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="problem-card" data-delay="1.5">
-                    <div class="card-header">
-                        <div class="problem-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                            </svg>
-                        </div>
-                        <div class="card-content">
-                            <h3 class="problem-title">想聽 NVDA 分析，卻要聽一堆廢話</h3>
-                            <p class="problem-description">
-                                我們理解你只在意你關心的新聞重點，但你聽的Podcast卻沒有人講到你需要的。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="problem-card" data-delay="2">
-                    <div class="card-header">
-                        <div class="problem-icon">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
-                            </svg>
-                        </div>
-                        <div class="card-content">
-                            <h3 class="problem-title">聽完30分鐘的Podcast，什麼重點都沒有</h3>
-                            <p class="problem-description">
-                                好不容易有時間關心股市，結果聽了半天還是不知道該買還是該賣。時間就這樣溜走了。
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="stat-item">
+                <div class="stat-number secondary">100%</div>
+                <div class="stat-label">個人化內容精準度</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number primary">10分鐘</div>
+                <div class="stat-label">精準播報只講重點</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number secondary">即時</div>
+                <div class="stat-label">美股資訊全覆蓋</div>
             </div>
         </div>
     </section>
 
-    <!-- Solution Section -->
-    <section class="solution-section" id="solutions">
-        <!-- 背景裝飾 -->
-        <div class="bg-decoration">
-            <div class="bg-circle bg-circle-1"></div>
-            <div class="bg-circle bg-circle-2"></div>
-        </div>
-        
-        <div class="container">
-            <!-- 標題區 -->
-            <div class="section-header">
-                <h1 class="section-title">YourPods 如何解決這一切</h1>
-                <p class="section-subtitle">AI 驅動的即時美股語音助手，專為忙碌投資人打造</p>
-            </div>
-            
-            <!-- 解決方案卡片 -->
-            <div class="solutions-grid">
-                <div class="solution-card" data-delay="0.5">
-                    <div class="solution-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
-                        </svg>
-                    </div>
-                    <h3 class="solution-title">即時生成</h3>
-                    <p class="solution-description">
-                        重大消息發生後 10 分鐘內，AI 自動整合全球資訊，為你量身打造專屬語音解讀。不再錯過任何影響股價的關鍵時刻。
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-container">
+            <h2 class="features-title">四大核心優勢</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">自動推播</h3>
+                    <p class="feature-description">
+                        30分鐘內完成製作並推播給你，不用等待，第一時間掌握重要消息
                     </p>
-                    <div class="solution-benefit">
-                        從突發新聞到個人化分析，只需 10 分鐘
-                    </div>
                 </div>
                 
-                <div class="solution-card" data-delay="1">
-                    <div class="solution-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                    </div>
-                    <h3 class="solution-title">個人化訂製</h3>
-                    <p class="solution-description">
-                        專注你關心的股票和產業，過濾不相關資訊。只聽你真正需要的內容，每一分鐘都是精華。
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">個人內容</h3>
+                    <p class="feature-description">
+                        只給你你需要的，不浪費時間，根據你的關注清單客製化內容
                     </p>
-                    <div class="solution-benefit">
-                        90% 精準度，100% 符合你的投資需求
-                    </div>
                 </div>
                 
-                <div class="solution-card" data-delay="1.5">
-                    <div class="solution-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
-                            <path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/>
-                        </svg>
-                    </div>
-                    <h3 class="solution-title">熟悉語調</h3>
-                    <p class="solution-description">
-                        台灣人熟悉的語音風格，三種主播風格任你選擇。從專業財經分析到輕鬆同事聊天，找到最適合你的聲音。
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3 class="feature-title">精準播報</h3>
+                    <p class="feature-description">
+                        每則10分鐘，只講重點，完美適合你的通勤時間
                     </p>
-                    <div class="solution-benefit">
-                        3 種語音風格，總有一款適合你
-                    </div>
                 </div>
-            </div>
-            
-            <!-- 語音風格展示 -->
-            <div class="voice-styles-section">
-                <h2 class="voice-title">試聽不同的語音風格</h2>
-                <p class="voice-subtitle">找到最適合你的專屬主播，讓聽投資分析變成一種享受</p>
                 
-                <div class="voice-styles-grid">
-                    <div class="voice-card">
-                        <div class="voice-avatar">👔</div>
-                        <h4 class="voice-name">專業財經主播風格</h4>
-                        <p class="voice-description">專業、準確、值得信賴的分析語調</p>
-                        <div class="voice-sample">
-                            <p class="voice-sample-text">
-                                「TSLA 今日下跌 4.2%，主要受到馬斯克與川普爭議影響。從技術面分析，目前股價已跌破關鍵支撐位...」
-                            </p>
-                        </div>
-                        <button class="play-demo-btn" onclick="playVoiceDemo(1)">
-                            <span class="btn-icon">▶️</span>
-                            <span>試聽專業風格</span>
-                        </button>
-                    </div>
-                    
-                    <div class="voice-card">
-                        <div class="voice-avatar">😤</div>
-                        <h4 class="voice-name">財經老師風格</h4>
-                        <p class="voice-description">直接、犀利、一針見血的投資建議</p>
-                        <div class="voice-sample">
-                            <p class="voice-sample-text">
-                                「TSLA 又跌了！我早就跟你們說過，馬斯克這個人就是愛惹事，現在知道後果了吧？快點止損啦！」
-                            </p>
-                        </div>
-                        <button class="play-demo-btn" onclick="playVoiceDemo(2)">
-                            <span class="btn-icon">▶️</span>
-                            <span>試聽老師風格</span>
-                        </button>
-                    </div>
-                    
-                    <div class="voice-card">
-                        <div class="voice-avatar">😊</div>
-                        <h4 class="voice-name">同事聊天風格</h4>
-                        <p class="voice-description">輕鬆、親切、就像朋友在分享投資心得</p>
-                        <div class="voice-sample">
-                            <p class="voice-sample-text">
-                                「欸你有聽說嗎？TSLA 今天被川普搞到跌了 4%，不過我覺得這可能是個進場機會，你覺得呢？」
-                            </p>
-                        </div>
-                        <button class="play-demo-btn" onclick="playVoiceDemo(3)">
-                            <span class="btn-icon">▶️</span>
-                            <span>試聽聊天風格</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Differentiation Section -->
-    <section class="differentiation-section" id="differentiation">
-        <!-- 背景裝飾 -->
-        <div class="bg-decoration">
-            <div class="bg-circle bg-circle-1"></div>
-            <div class="bg-circle bg-circle-2"></div>
-        </div>
-        
-        <div class="container">
-            <!-- 標題區 -->
-            <div class="section-header">
-                <h1 class="section-title">為什麼只有 YourPods 做得到？</h1>
-                <p class="section-subtitle">
-                    市場不等人，機會稍縱即逝。當你還在等 Podcaster 更新時，聰明錢已經進場了。
-                </p>
-            </div>
-            
-            <!-- 核心論述區 -->
-            <div class="highlight-section">
-                <h2 class="highlight-title">AI 的即時優勢是人類無法複製的</h2>
-                <p class="highlight-text">
-                    人類 Podcaster 需要時間研究、錄製、剪輯，但市場不等人。只有 AI 能在消息發生的瞬間，立即整合全球資訊，為你量身打造 10 分鐘精準解讀。
-                </p>
-            </div>
-            
-            <!-- 核心優勢 -->
-            <div class="advantages-grid">
-                <div class="advantage-card" data-delay="0.5">
-                    <div class="advantage-number">1</div>
-                    <div class="advantage-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
-                        </svg>
-                    </div>
-                    <h3 class="advantage-title">極速反應</h3>
-                    <p class="advantage-description">
-                        川普凌晨 3 點發推，YourPods 凌晨 3:10 就有分析。不需要等到隔天早上，更不用等一週後的節目更新。
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3 class="feature-title">即時資訊</h3>
+                    <p class="feature-description">
+                        美股大盤、個股、總經消息、地緣政治等重大事件發生全部整理給你
                     </p>
-                    <div class="advantage-stat">
-                        10 分鐘 vs 傳統的 6-24 小時
-                    </div>
-                </div>
-                
-                <div class="advantage-card" data-delay="1">
-                    <div class="advantage-number">2</div>
-                    <div class="advantage-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                    </div>
-                    <h3 class="advantage-title">個人專屬</h3>
-                    <p class="advantage-description">
-                        不是萬用的市場分析，而是專門針對你關心的 TSLA、NVDA、AAPL 等股票的深度解讀。每一秒都是你需要的。
-                    </p>
-                    <div class="advantage-stat">
-                        100% 個人化 vs 90% 無關內容
-                    </div>
-                </div>
-                
-                <div class="advantage-card" data-delay="1.5">
-                    <div class="advantage-number">3</div>
-                    <div class="advantage-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
-                            <path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/>
-                        </svg>
-                    </div>
-                    <h3 class="advantage-title">聲音熟悉</h3>
-                    <p class="advantage-description">
-                        三種台灣人熟悉的語調，不會有機器人的生硬感。從專業主播到老師訓話，總有一種讓你聽得舒服的風格。
-                    </p>
-                    <div class="advantage-stat">
-                        3 種風格選擇 vs 單一固定主播
-                    </div>
-                </div>
-                
-                <div class="advantage-card" data-delay="2">
-                    <div class="advantage-number">4</div>
-                    <div class="advantage-icon">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                    </div>
-                    <h3 class="advantage-title">永不休息</h3>
-                    <p class="advantage-description">
-                        週末、假日、凌晨都有服務。美股開盤時間就是台灣晚上，正好是你通勤或放鬆的時候，隨時都有最新分析。
-                    </p>
-                    <div class="advantage-stat">
-                        24/7 全時服務 vs 週更或不定期更新
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 競品對比 -->
-            <div class="competitors-section">
-                <h2 class="competitors-title">看看市場上其他選擇的限制</h2>
-                <p class="competitors-subtitle">每個現有解決方案都有它的侷限性，只有 YourPods 能做到真正的即時個人化</p>
-                
-                <div class="competitors-grid">
-                    <!-- YourPods 優勢突出顯示 -->
-                    <div class="yourpods-highlight">
-                        <div class="competitor-card yourpods-advantage">
-                            <div class="advantage-badge">YourPods 優勢</div>
-                            <div class="competitor-logo">🎧</div>
-                            <h4 class="competitor-name">YourPods</h4>
-                            <p class="competitor-type">AI 即時語音分析</p>
-                            <div class="competitor-limitation">
-                                10 分鐘內即時生成、100% 個人化內容、三種熟悉語調、24/7 永不斷線
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 其他競品限制 -->
-                    <div class="other-competitors">
-                        <div class="competitor-card">
-                            <div class="competitor-logo">📻</div>
-                            <h4 class="competitor-name">股癌</h4>
-                            <p class="competitor-type">週更財經 Podcast</p>
-                            <div class="competitor-limitation">
-                                一週只更新兩次，內容精彩但跟不上市場節奏，重大事件發生時只能乾等
-                            </div>
-                        </div>
-                        
-                        <div class="competitor-card">
-                            <div class="competitor-logo">🌅</div>
-                            <h4 class="competitor-name">財經皓角</h4>
-                            <p class="competitor-type">每日財經 Podcast</p>
-                            <div class="competitor-limitation">
-                                雖然每日更新，但都是預錄內容，無法即時回應突發市場變化
-                            </div>
-                        </div>
-                        
-                        <div class="competitor-card">
-                            <div class="competitor-logo">📱</div>
-                            <h4 class="competitor-name">投資APP推播</h4>
-                            <p class="competitor-type">即時財經訊息</p>
-                            <div class="competitor-limitation">
-                                只有冰冷的文字通知，沒有深度分析，通勤時不方便閱讀長文
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section" id="signup">
-        <!-- 背景裝飾 -->
-        <div class="bg-decoration">
-            <div class="bg-circle bg-circle-1"></div>
-            <div class="bg-circle bg-circle-2"></div>
-        </div>
-        
-        <div class="cta-container">
-            <div class="cta-card">
-                <div class="limited-badge">限量開放 100 位</div>
-                
-                <h1 class="cta-main-title">搶先體驗 YourPods</h1>
-                <p class="cta-subtitle">成為首批體驗 AI 即時美股語音分析的投資人</p>
-                
-                <div class="urgency-text">
-                    <span class="urgency-icon">⏰</span>
-                    <span>早鳥試用名額即將額滿</span>
-                </div>
-                
-                <div class="benefits-list">
-                    <h3 class="benefits-title">搶先試用你將獲得：</h3>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">✨</span>
-                        <span>免費 7 天完整功能體驗</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">🎯</span>
-                        <span>專屬個人化美股語音分析</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">⚡</span>
-                        <span>重大事件 10 分鐘內即時解讀</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">🎙️</span>
-                        <span>三種語音風格無限試聽</span>
-                    </div>
-                    <div class="benefit-item">
-                        <span class="benefit-icon">👥</span>
-                        <span>直接向開發團隊反饋建議</span>
-                    </div>
-                </div>
-                
-                <div class="signup-form">
-                    <h3 class="form-title">立即加入候補名單</h3>
-                    <form id="signupForm" onsubmit="handleSignup(event)">
-                        <div class="form-group">
-                            <input 
-                                type="email" 
-                                class="form-input" 
-                                placeholder="輸入你的 Email 地址"
-                                required
-                                id="emailInput"
-                            >
-                        </div>
-                        <button type="submit" class="submit-btn" id="submitBtn">
-                            <span class="btn-text">搶先加入候補名單</span>
-                            <div class="submit-loading-spinner"></div>
-                        </button>
-                    </form>
-                </div>
-                
-                <div class="trust-indicators-cta">
-                    <div class="trust-item-cta">
-                        <span class="trust-icon">🔒</span>
-                        <span>Email 絕不外洩</span>
-                    </div>
-                    <div class="trust-item-cta">
-                        <span class="trust-icon">🚫</span>
-                        <span>無垃圾郵件</span>
-                    </div>
-                    <div class="trust-item-cta">
-                        <span class="trust-icon">✅</span>
-                        <span>隨時可取消訂閱</span>
-                    </div>
-                </div>
-                
-                <div class="social-proof">
-                    <p class="proof-text">已有 87 位投資朋友加入候補名單</p>
-                    <div class="user-avatars">
-                        <div class="user-avatar">👨</div>
-                        <div class="user-avatar">👩</div>
-                        <div class="user-avatar">👱</div>
-                        <div class="user-avatar">👧</div>
-                        <div class="user-avatar">🧑</div>
-                    </div>
-                    <p class="countdown">僅剩 13 個名額！</p>
                 </div>
             </div>
         </div>
